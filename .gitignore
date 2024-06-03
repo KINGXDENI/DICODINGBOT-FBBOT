@@ -1,3 +1,6 @@
 /node_modules
-/playground
-package-lock.json
+/vendor
+/.idea
+.idea/
+.env
+/public/bower_components
