@@ -1,8 +1,8 @@
 const axios = require('axios');
 require('dotenv').config();
 
-const TOKEN = process.env.TOKEN;
-const PAGE_ID = process.env.PAGE_ID;
+const TOKEN = 'EAAGl7lLFiXQBOZBIFVQCJDoP8wliksTIy12yE83ahZAHE4LgACldll8BF5wg6ceZCveZCrXBiyUMYPjoPpJqUadPtwSD3MZBslzF9RLT8qeOfbBDhZCEg2utMg3Usj2JZACThKAaNsfldoFeQEPRGCMavfEYmLj8Pywn1JQ2eHyNJtZBX4peERfWZBDj0HBkjw74nJ414ENBMjQZDZD';
+const PAGE_ID = 365365943317923;
 
 const sendMessage = async (senderId, message) => {
   let options = {
