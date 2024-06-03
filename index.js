@@ -15,11 +15,13 @@ webApp.use((req, res, next) => {
 const homeRoute = require('./routes/homeRoute');
 const fbWebhookRoute = require('./routes/fbWebhookRoute');
 const privacyRoute = require('./routes/privacyRoute');
+const sendMessageRoute = require('./routes/sendMessageRoute');
 
 webApp.use('/', homeRoute.router);
 webApp.use('/facebook', fbWebhookRoute.router);
 webApp.use('/privacy', privacyRoute.router);
+webApp.use('/sendMessage', sendMessageRoute.router);
 
 webApp.listen(PORT, () => {
-  console.log(`Server is up and running at ${PORT}`);
+    console.log(`Server is up and running at ${PORT}`);
 });

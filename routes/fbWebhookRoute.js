@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
-
-const { GeminiAI } = require('../helper/GeminiAI');
-const { sendMessage, setTypingOff, setTypingOn } = require('../helper/messengerApi');
+const axios = require("axios").default;
 
 router.get('/', (req, res) => {
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
   let challenge = req.query['hub.challenge'];
   if (mode && token) {
-    if (mode === 'subscribe' && token === process.env.VERIFY_TOKEN) {
+    if (mode === 'subscribe' && token === process.env.VERIFY_TOEKN) {
       console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);
     } else {
@@ -19,18 +17,30 @@ router.get('/', (req, res) => {
   }
 });
 
+const callSendMessage = async (url, senderId, query) => {
+  let options = {
+    method: 'POST',
+    url: url,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: {
+      senderId: senderId,
+      query: query
+    }
+  };
+  await axios.request(options)
+}
+
 router.post('/', async (req, res) => {
   try {
     let body = req.body;
-    console.log(body);
     let senderId = body.entry[0].messaging[0].sender.id;
     let query = body.entry[0].messaging[0].message.text;
-    await setTypingOn(senderId);
-    let result = await GeminiAI(senderId, query, null);
-    await sendMessage(senderId, result);
-    await setTypingOff(senderId);
-    console.log(senderId);
-    console.log(result.response);
+    const host = req.hostname;
+    let requestUrl = `https://${host}/sendMessage`;
+    callSendMessage(requestUrl, senderId, query)
+    console.log(senderId, query);
   } catch (error) {
     console.log(error);
   }

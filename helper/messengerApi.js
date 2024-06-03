@@ -18,7 +18,9 @@ const sendMessage = async (senderId, message) => {
       message: { text: message }
     }
   };
+
   let response = await axios.request(options);
+
   if (response['status'] == 200 && response['statusText'] === 'OK') {
     return 1;
   } else {
