@@ -22,11 +22,12 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   try {
     let body = req.body;
+    console.log(body);
     let senderId = body.entry[0].messaging[0].sender.id;
     let query = body.entry[0].messaging[0].message.text;
     await setTypingOn(senderId);
     let result = await GeminiAI(senderId, query, null);
-    await sendMessage(senderId, result.response);
+    await sendMessage(senderId, result);
     await setTypingOff(senderId);
     console.log(senderId);
     console.log(result.response);
