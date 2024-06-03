@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start2": "pm2 start node index.js --name Deni --exp-backoff-restart-delay=100"
   },
   "keywords": [],
   "author": "",
